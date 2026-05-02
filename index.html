@@ -281,6 +281,137 @@ nav {
   color: var(--blue); font-weight: 700;
 }
 
+
+/* ── SKILLS: INTERACTIVE PANEL ── */
+.skills-panel {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.skills-tabs {
+  background: rgba(255,255,255,0.72);
+  border: 1px solid var(--rule);
+  border-radius: 24px;
+  padding: 0.75rem;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.055);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skill-tab {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  font-family: var(--dm-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.18s, color 0.18s, background 0.18s, box-shadow 0.18s;
+}
+
+.skill-tab:hover {
+  background: var(--blue-light);
+  color: var(--blue);
+  transform: translateX(2px);
+}
+
+.skill-tab.active {
+  background: linear-gradient(135deg, var(--blue), var(--accent));
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(124, 58, 237, 0.22);
+}
+
+.skills-content {
+  min-height: 330px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid var(--rule);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.055);
+}
+
+.skills-card {
+  display: none;
+  animation: skillFade 0.28s ease;
+}
+
+.skills-card.active {
+  display: block;
+}
+
+@keyframes skillFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.skills-card-head {
+  max-width: 680px;
+  margin-bottom: 1.75rem;
+}
+
+.skills-card-kicker {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: var(--blue-light);
+  border: 1px solid rgba(124,58,237,0.16);
+  border-radius: 999px;
+  padding: 5px 10px;
+  margin-bottom: 0.9rem;
+}
+
+.skills-card h3 {
+  font-family: var(--playfair);
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  margin-bottom: 0.7rem;
+}
+
+.skills-card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.skills-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .skills-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .skill-tab {
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .skills-content {
+    min-height: auto;
+    padding: 1.4rem;
+  }
+}
+
 /* ── EXPERIENCE TIMELINE ── */
 .timeline { position: relative; padding-left: 1.75rem; }
 .timeline::before {
@@ -692,60 +823,86 @@ footer {
       <h2 class="section-title">Skills & <em>Tools</em></h2>
     </div>
 
-    <div class="skills-layout reveal">
-      <div class="skills-nav">
-        <span class="skills-nav-item active">Backend</span>
-        <span class="skills-nav-item">Frontend</span>
-        <span class="skills-nav-item">AI / ML</span>
-        <span class="skills-nav-item">Cloud & DevOps</span>
-        <span class="skills-nav-item">Languages</span>
+    <div class="skills-panel reveal">
+      <div class="skills-tabs" role="tablist" aria-label="Skills categories">
+        <button class="skill-tab active" type="button" data-skill="backend">Backend</button>
+        <button class="skill-tab" type="button" data-skill="frontend">Frontend</button>
+        <button class="skill-tab" type="button" data-skill="ai">AI / ML</button>
+        <button class="skill-tab" type="button" data-skill="cloud">Cloud & DevOps</button>
+        <button class="skill-tab" type="button" data-skill="languages">Languages</button>
       </div>
-      <div>
-        <div class="skills-group">
-          <div class="skills-group-label">Backend · Primary strength</div>
-          <div class="skills-row">
+
+      <div class="skills-content">
+        <div class="skills-card active" id="backend">
+          <div class="skills-card-head">
+            <span class="skills-card-kicker">Primary Strength</span>
+            <h3>Backend Engineering</h3>
+            <p>Experience in building APIs, handling authentication flows, and working with structured data models.</p>
+          </div>
+          <div class="skills-chip-grid">
             <span class="skill-pill primary">Django REST Framework</span>
             <span class="skill-pill primary">REST API Design</span>
             <span class="skill-pill primary">PostgreSQL</span>
-            <span class="skill-pill primary">Authentication & JWT</span>
+            <span class="skill-pill">Authentication & JWT</span>
             <span class="skill-pill">API Integration</span>
             <span class="skill-pill">Database Schema Design</span>
           </div>
         </div>
-        <div class="skills-group">
-          <div class="skills-group-label">Cloud & Infrastructure</div>
-          <div class="skills-row">
-            <span class="skill-pill">AWS EC2</span>
+
+        <div class="skills-card" id="frontend">
+          <div class="skills-card-head">
+            <span class="skills-card-kicker">UI Development</span>
+            <h3>Frontend Development</h3>
+            <p>Built user-facing interfaces and connected frontend workflows with backend APIs.</p>
+          </div>
+          <div class="skills-chip-grid">
+            <span class="skill-pill primary">React</span>
+            <span class="skill-pill">HTML</span>
+            <span class="skill-pill">CSS</span>
+            <span class="skill-pill">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="skills-card" id="ai">
+          <div class="skills-card-head">
+            <span class="skills-card-kicker">AI-integrated Systems</span>
+            <h3>AI / ML</h3>
+            <p>Worked with chatbot integration, RAG-based responses, OCR, and computer vision-based detection projects.</p>
+          </div>
+          <div class="skills-chip-grid">
+            <span class="skill-pill primary">RAG-based LLMs</span>
+            <span class="skill-pill">YOLOv5 / YOLOv8</span>
+            <span class="skill-pill">OCR</span>
+            <span class="skill-pill">Generative AI</span>
+            <span class="skill-pill">Botpress Integration</span>
+          </div>
+        </div>
+
+        <div class="skills-card" id="cloud">
+          <div class="skills-card-head">
+            <span class="skills-card-kicker">Deployment & Tools</span>
+            <h3>Cloud & DevOps</h3>
+            <p>Hands-on exposure to deployment workflows, version control, API testing, and server setup basics.</p>
+          </div>
+          <div class="skills-chip-grid">
+            <span class="skill-pill primary">AWS EC2</span>
             <span class="skill-pill">Docker</span>
             <span class="skill-pill">Nginx</span>
             <span class="skill-pill">Git</span>
             <span class="skill-pill">Postman</span>
           </div>
         </div>
-        <div class="skills-group">
-          <div class="skills-group-label">Frontend</div>
-          <div class="skills-row">
-            <span class="skill-pill">React</span>
-            <span class="skill-pill">HTML</span>
-            <span class="skill-pill">CSS</span>
-            <span class="skill-pill">JavaScript</span>
+
+        <div class="skills-card" id="languages">
+          <div class="skills-card-head">
+            <span class="skills-card-kicker">Programming</span>
+            <h3>Languages</h3>
+            <p>Python for backend and AI-related development, Java for DSA practice, and JavaScript for frontend work.</p>
           </div>
-        </div>
-        <div class="skills-group">
-          <div class="skills-group-label">AI / ML · Secondary</div>
-          <div class="skills-row">
-            <span class="skill-pill">RAG-based LLMs</span>
-            <span class="skill-pill">YOLOv5 / YOLOv8</span>
-            <span class="skill-pill">OCR</span>
-            <span class="skill-pill">Generative AI</span>
-          </div>
-        </div>
-        <div class="skills-group">
-          <div class="skills-group-label">Languages</div>
-          <div class="skills-row">
-            <span class="skill-pill">Python</span>
-            <span class="skill-pill">JavaScript</span>
+          <div class="skills-chip-grid">
+            <span class="skill-pill primary">Python</span>
             <span class="skill-pill">Java</span>
+            <span class="skill-pill">JavaScript</span>
           </div>
         </div>
       </div>
@@ -822,7 +979,7 @@ footer {
           </div>
           <span class="contact-link-arrow">→</span>
         </a>
-        <a href="https://www.linkedin.com/in/shree-nithi-v-m-032929246/" target="_blank" class="contact-link">
+        <a href="https://www.linkedin.com/in/shreenithi-v-m" target="_blank" class="contact-link">
           <div>
             <div class="contact-link-label">LinkedIn</div>
             <div>linkedin.com/in/shreenithi-v-m</div>
@@ -847,6 +1004,26 @@ footer {
     <div class="footer-mark">shreenithi.vm</div>
   </div>
 </footer>
+
+
+<script>
+document.querySelectorAll(".skill-tab").forEach((button) => {
+  button.addEventListener("click", () => {
+    const target = button.dataset.skill;
+
+    document.querySelectorAll(".skill-tab").forEach((tab) => {
+      tab.classList.remove("active");
+    });
+
+    document.querySelectorAll(".skills-card").forEach((card) => {
+      card.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    document.getElementById(target).classList.add("active");
+  });
+});
+</script>
 
 <script>
 const io = new IntersectionObserver(entries => {
